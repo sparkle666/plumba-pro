@@ -1,4 +1,5 @@
-import { motion } from 'motion/react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Verified, 
   CheckCircle, 
@@ -10,8 +11,16 @@ import {
   BookOpen, 
   Database,
   PhoneCall, 
-  Laptop
+  Laptop,
+  X,
+  TrendingDown,
+  Award,
+  ShieldCheck,
+  DollarSign,
+  Globe,
+  MapPin
 } from 'lucide-react';
+import { CASE_STUDIES, CaseStudy } from '../data/caseStudiesData';
 
 interface LandingPageProps {
   onStartFunnel: () => void;
@@ -19,6 +28,8 @@ interface LandingPageProps {
 }
 
 export default function LandingPage({ onStartFunnel, savedLeadsCount }: LandingPageProps) {
+  const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
+  
   // Animating points in the graph
   const barHeights = [20, 32, 26, 48, 62, 58, 92];
 
@@ -305,78 +316,287 @@ export default function LandingPage({ onStartFunnel, savedLeadsCount }: LandingP
           </div>
 
           {/* Case Studies grid with hotlinked assets */}
-          <div className="space-y-6" id="case-studies">
-            <h3 className="font-mono text-center text-xs tracking-widest text-[#6ffbbe] uppercase font-bold mb-8">
-              ACTIVE CASE STUDIES — EXTREME PERFORMANCE DIRECTIVES
-            </h3>
+          <div className="space-y-10" id="case-studies">
+            <div className="text-center space-y-2">
+              <h3 className="font-mono text-xs tracking-widest text-[#6ffbbe] uppercase font-bold">
+                ACTIVE CASE STUDIES — EXTREME PERFORMANCE DIRECTIVES
+              </h3>
+              <p className="font-sans text-xs text-[#c3c6d7] max-w-xl mx-auto">
+                Explore real results from professional regional plumbing contractors running the PlumbGrowth Conversion Engine. Click any case study to view deep average figures, challenges, and applied systems.
+              </p>
+            </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Case Study 1 */}
-              <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden group hover:border-[#2563eb]/40 hover:bg-white/10 transition-all flex flex-col">
-                <div className="relative overflow-hidden aspect-video">
-                  <img 
-                    referrerPolicy="no-referrer"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgGT4ZZMSblqX7jifipK1_ohimoLzeCgDODYRTYmKq-H3n36vD286DKbpd-UtAVLlIKBUr_scPO8tx8yyz923Q46IbO8qSJEcjD57vv9c60vx4vD2x6xeFG1BMNSnLq1ItB0NyQbTU71QNSm-cCO6I-qzJYeIxPGYCpVl916WecYEXdByg4PDvnR9wBPxiboKwKHPhB932f2lWNy4HYRVBZf_KAprSWFFxUHUPXAV1bHis-INx4V0mmZMTSA8xCp73UWqfrqz04C8" 
-                    alt="Case Study 1: Tools & Digital Dashboard tablet" 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#131b2e] to-transparent opacity-60"></div>
-                </div>
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div className="space-y-1">
-                    <span className="text-[#6ffbbe] font-mono text-[10px] uppercase font-extrabold tracking-wider block">CASE STUDY: CITY PLUMBING</span>
-                    <h5 className="font-sans font-bold text-lg text-white group-hover:text-[#6ffbbe] transition-colors leading-tight">From 12 to 84 Weekly Lead Calls</h5>
+              {CASE_STUDIES.map((study) => (
+                <div 
+                  key={study.id}
+                  className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden group hover:border-[#2563eb]/40 hover:bg-white/10 transition-all flex flex-col cursor-pointer text-left"
+                  onClick={() => setSelectedStudy(study)}
+                  id={`case-study-card-${study.id}`}
+                >
+                  <div className="relative overflow-hidden aspect-video">
+                    <img 
+                      referrerPolicy="no-referrer"
+                      src={study.image} 
+                      alt={study.alt} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#131b2e] to-transparent opacity-60"></div>
+                    <div className="absolute bottom-3 left-4 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] text-[#6ffbbe] font-mono uppercase font-bold tracking-wider">
+                      {study.location}
+                    </div>
                   </div>
-                  <p className="font-sans text-xs text-[#c3c6d7] mt-3 leading-relaxed">
-                    Completely re-anchored home funnel with phone indicators and rapid regional validation tags for emergency sewer repair.
-                  </p>
-                </div>
-              </div>
+                  
+                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div className="space-y-2">
+                      <span className="text-[#6ffbbe] font-mono text-[10px] uppercase font-extrabold tracking-wider block">{study.tag}</span>
+                      <h5 className="font-sans font-bold text-lg text-white group-hover:text-[#6ffbbe] transition-colors leading-tight">{study.title}</h5>
+                      <p className="font-sans text-xs text-[#c3c6d7] leading-relaxed line-clamp-2">
+                        {study.shortDesc}
+                      </p>
+                    </div>
 
-              {/* Case Study 2 */}
-              <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden group hover:border-[#2563eb]/40 hover:bg-white/10 transition-all flex flex-col">
-                <div className="relative overflow-hidden aspect-video">
-                  <img 
-                    referrerPolicy="no-referrer"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmM8ceQ8OhsXhG4Q_0TtT3vt1aIeLOLuVjL1B8T-80HmTJySCiue0CC3Miu3o3WseYy0Le5MEnJKaiP2C_Qkedlj0D46tp2Tbgm3UjzW0axRw7QBfW89RtRT6ZDAYiEQcbdEw0TwxGdUeTSUJn3olI5LSSqdPzCQBYudTuuwxGaJ4uDvr1tks_-Txbzd6Bdwn1bNtOidRDvwL2tNqW4WfpgNTELd-lHJ_cKJ_M0Kn_a62P4uHPn0DQ115fcvf2ImIWqqw5YSjksQA" 
-                    alt="Case Study 2: Clean compartments inside professional service van" 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#131b2e] to-transparent opacity-60"></div>
-                </div>
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div className="space-y-1">
-                    <span className="text-[#6ffbbe] font-mono text-[10px] uppercase font-extrabold tracking-wider block">CASE STUDY: ELITE DRAINS</span>
-                    <h5 className="font-sans font-bold text-lg text-white group-hover:text-[#6ffbbe] transition-colors leading-tight">Dominating Local Search in 90 Days</h5>
-                  </div>
-                  <p className="font-sans text-xs text-[#c3c6d7] mt-3 leading-relaxed">
-                    Mapped neighborhood-level commercial niches to optimize regional plumbing ad landing zones for peak booking.
-                  </p>
-                </div>
-              </div>
+                    {/* Quick Face Metrics */}
+                    <div className="bg-black/30 border border-white/5 rounded-xl p-3.5 space-y-2.5 text-xs">
+                      <div className="flex justify-between items-center">
+                        <span className="text-[#737686] font-semibold">Average Revenue Lift:</span>
+                        <div className="flex items-center gap-1.5 font-bold">
+                          <span className="text-[#737686] line-through text-[11px]">{study.averageMonthlyRevenueBefore.split(" ")[0]}</span>
+                          <span className="text-[#10B981]">{study.averageMonthlyRevenueAfter}</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-[#737686] font-semibold">Average CPL Shift:</span>
+                        <div className="flex items-center gap-1.5 font-bold">
+                          <span className="text-[#737686] line-through text-[11px]">{study.averageCostPerLeadBefore.split(" ")[0]}</span>
+                          <span className="text-[#10b981]">{study.averageCostPerLeadAfter}</span>
+                        </div>
+                      </div>
+                    </div>
 
-              {/* Case Study 3 */}
-              <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden group hover:border-[#2563eb]/40 hover:bg-white/10 transition-all flex flex-col">
-                <div className="relative overflow-hidden aspect-video">
-                  <img 
-                    referrerPolicy="no-referrer"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqXr-2tR-436W9N3vsrO7e9Gwp1cs90t0PRNDKlhrvjbvD7LIEqUZANlWJb5vVCK32Rz0yvYifigsj8Se2PeJeerMMujU-8-_5LbNZ_CVBPoIwyeZhZQLzx-NQ3R0deahrvDFgZe3MD4d3xnS3UDcV-sd0s8NfvF5ZIu2y7xXYAMOOqFN7-8dLq2GETyO2wyIToXEoIVGQx9nvOD1AVR6v3gt3L2-7OzhY_0Z8N7yGBcOJrZjt9ZFGtMzLR-VDlEmQmLBepi4W7TQ" 
-                    alt="Case Study 3: Macro shot of water flowing in a chrome high-end designer faucet" 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#131b2e] to-transparent opacity-60"></div>
-                </div>
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div className="space-y-1">
-                    <span className="text-[#6ffbbe] font-mono text-[10px] uppercase font-extrabold tracking-wider block">CASE STUDY: PROPIPE SOLUTIONS</span>
-                    <h5 className="font-sans font-bold text-lg text-white group-hover:text-[#6ffbbe] transition-colors leading-tight">342% Increase in Emergency Jobs</h5>
+                    <button 
+                      className="w-full py-2.5 bg-white/5 group-hover:bg-[#2563eb] text-white rounded-xl text-xs font-bold font-sans tracking-wide transition-all border border-white/10 group-hover:border-transparent flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <span>View Full Story & Figures</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </button>
                   </div>
-                  <p className="font-sans text-xs text-[#c3c6d7] mt-3 leading-relaxed">
-                    Engineered instant client mobile tap-to-call interfaces for premium response tracking across three urban centers.
-                  </p>
                 </div>
-              </div>
+              ))}
             </div>
+
+            {/* Case Study Popover Modal */}
+            <AnimatePresence>
+              {selectedStudy && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                  {/* Backdrop */}
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={() => setSelectedStudy(null)}
+                    className="absolute inset-0 bg-black/75 backdrop-blur-md"
+                  />
+
+                  {/* Modal Panel */}
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.95, y: 15 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: 15 }}
+                    className="relative w-full max-w-4xl max-h-[90vh] bg-[#131b2e] border border-white/15 rounded-3xl overflow-y-auto premium-shadow text-white flex flex-col z-10"
+                    id="case-study-modal-container"
+                  >
+                    {/* Header Banner */}
+                    <div className="relative aspect-video sm:aspect-[2.4/1] w-full shrink-0">
+                      <img 
+                        referrerPolicy="no-referrer"
+                        src={selectedStudy.image} 
+                        alt={selectedStudy.alt} 
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#131b2e] via-[#131b2e]/60 to-transparent"></div>
+                      
+                      {/* Close button */}
+                      <button 
+                        onClick={() => setSelectedStudy(null)}
+                        className="absolute top-4 right-4 p-2 rounded-full bg-black/70 hover:bg-black/95 text-white border border-white/10 transition-colors cursor-pointer z-30 flex items-center justify-center"
+                        title="Close Modal"
+                        id="case-study-modal-close"
+                      >
+                        <X className="w-5 h-5" />
+                      </button>
+
+                      {/* Header Overlays */}
+                      <div className="absolute bottom-6 left-6 right-6 text-left space-y-1 z-20">
+                        <span className="text-[#6ffbbe] font-mono text-[10px] md:text-xs uppercase font-extrabold tracking-widest block">
+                          {selectedStudy.tag}
+                        </span>
+                        <h4 className="font-sans font-extrabold text-xl md:text-3xl text-white tracking-tight">
+                          {selectedStudy.title}
+                        </h4>
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 text-xs text-[#c3c6d7]">
+                          <div className="flex items-center gap-1.5">
+                            <MapPin className="w-4 h-4 text-[#6ffbbe]" />
+                            <span>{selectedStudy.location}</span>
+                          </div>
+                          <span className="text-[#c3c6d7]/30">•</span>
+                          <div className="flex items-center gap-1.5">
+                            <Award className="w-4 h-4 text-[#6ffbbe]" />
+                            <span>{selectedStudy.specialty}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Content Section */}
+                    <div className="p-6 md:p-8 space-y-8 overflow-y-visible">
+                      {/* Comparison Metrics Cards */}
+                      <div className="space-y-3">
+                        <span className="font-mono text-[10px] tracking-wider uppercase text-[#c3c6d7] font-bold block text-left">
+                          AVERAGE SYSTEMS RUNTIME METRICS (BEFORE VS AFTER INSTALLATION)
+                        </span>
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-left">
+                          <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col justify-between">
+                            <span className="text-[#737686] text-[10px] font-bold uppercase tracking-wide">Monthly Revenue Flow</span>
+                            <div className="mt-2 text-xs text-[#c3c6d7] line-through font-semibold">
+                              {selectedStudy.averageMonthlyRevenueBefore}
+                            </div>
+                            <div className="text-lg md:text-xl font-extrabold text-[#10B981] flex items-center gap-1 mt-0.5">
+                              <TrendingUp className="w-4 h-4 shrink-0" />
+                              <span>{selectedStudy.averageMonthlyRevenueAfter}</span>
+                            </div>
+                          </div>
+
+                          <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col justify-between">
+                            <span className="text-[#737686] text-[10px] font-bold uppercase tracking-wide">Cost-Per-Lead (CPL)</span>
+                            <div className="mt-2 text-xs text-[#c3c6d7] line-through font-semibold">
+                              {selectedStudy.averageCostPerLeadBefore}
+                            </div>
+                            <div className="text-lg md:text-xl font-extrabold text-[#10b981] flex items-center gap-1 mt-0.5">
+                              <TrendingDown className="w-4 h-4 shrink-0 text-[#10b981]" />
+                              <span>{selectedStudy.averageCostPerLeadAfter}</span>
+                            </div>
+                          </div>
+
+                          <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col justify-between">
+                            <span className="text-[#737686] text-[10px] font-bold uppercase tracking-wide">Conversion Efficiency</span>
+                            <div className="mt-2 text-xs text-[#c3c6d7] line-through font-semibold">
+                              {selectedStudy.conversionRateBefore}
+                            </div>
+                            <div className="text-lg md:text-xl font-extrabold text-[#10B981] flex items-center gap-1 mt-0.5">
+                              <TrendingUp className="w-4 h-4 shrink-0" />
+                              <span>{selectedStudy.conversionRateAfter}</span>
+                            </div>
+                          </div>
+
+                          <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col justify-between">
+                            <span className="text-[#737686] text-[10px] font-bold uppercase tracking-wide">Search Ad ROAS</span>
+                            <div className="mt-2 text-xs text-[#c3c6d7] line-through font-semibold">
+                              {selectedStudy.returnOnAdSpendBefore}
+                            </div>
+                            <div className="text-lg md:text-xl font-extrabold text-[#10b981] flex items-center gap-1 mt-0.5">
+                              <TrendingUp className="w-4 h-4 shrink-0 text-[#10b981]" />
+                              <span>{selectedStudy.returnOnAdSpendAfter}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Diagnostic Deep Dive Grid */}
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-2">
+                        {/* Narrative Left Column */}
+                        <div className="lg:col-span-7 space-y-6 text-left">
+                          <div className="space-y-2">
+                            <h5 className="font-sans font-bold text-sm text-[#6ffbbe] uppercase tracking-wide">The Profile</h5>
+                            <p className="font-sans text-xs text-[#c3c6d7] leading-relaxed">
+                              {selectedStudy.profileText}
+                            </p>
+                          </div>
+
+                          <div className="space-y-2">
+                            <h5 className="font-sans font-bold text-sm text-pink-400 uppercase tracking-wide">The Market Challenge</h5>
+                            <p className="font-sans text-xs text-[#c3c6d7] leading-relaxed">
+                              {selectedStudy.challenge}
+                            </p>
+                          </div>
+
+                          <div className="space-y-2 bg-emerald-950/25 border border-emerald-500/15 p-5 rounded-2xl">
+                            <h5 className="font-sans font-bold text-sm text-[#10B981] uppercase tracking-wide flex items-center gap-1.5">
+                              <ShieldCheck className="w-4.5 h-4.5" />
+                              <span>Core Results Summary</span>
+                            </h5>
+                            <p className="font-sans text-xs text-[#c3c6d7] leading-relaxed">
+                              {selectedStudy.resultsBreakdown}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Systems Right Column */}
+                        <div className="lg:col-span-5 space-y-6 text-left">
+                          <div className="bg-white/5 border border-white/10 p-5 rounded-3xl space-y-4">
+                            <h5 className="font-sans font-bold text-sm text-white uppercase tracking-wide flex items-center gap-1.5">
+                              <Activity className="w-4.5 h-4.5 text-[#6ffbbe]" />
+                              <span>Applied Systems Rollout</span>
+                            </h5>
+                            <div className="space-y-3">
+                              {selectedStudy.systemsApplied.map((sys, idx) => (
+                                <div key={idx} className="flex gap-2.5 items-start">
+                                  <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#6ffbbe]/10 border border-[#6ffbbe]/25 text-[#6ffbbe] text-[10px] font-bold font-mono shrink-0 mt-0.5">
+                                    {idx + 1}
+                                  </span>
+                                  <p className="font-sans text-xs text-[#c3c6d7] leading-relaxed">
+                                    {sys}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Detail Stats Table block */}
+                          <div className="bg-black/30 border border-white/5 rounded-2xl p-4 space-y-3">
+                            <div className="text-[10px] font-mono tracking-widest text-[#737686] font-bold uppercase">
+                              DATA TABLE COMPARISON OVERVIEW
+                            </div>
+                            <div className="space-y-2.5 text-xs">
+                              {selectedStudy.metricsTable.map((row, rIdx) => (
+                                <div key={rIdx} className="flex justify-between items-center py-1.5 border-b border-white/5 last:border-b-0">
+                                  <span className="text-[#c3c6d7] font-medium">{row.label}</span>
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-[#737686] text-[10px] line-through">{row.beforeValue}</span>
+                                    <span className={`font-bold ${row.isPositive ? 'text-[#10B981]' : 'text-[#6ffbbe]'}`}>
+                                      {row.afterValue}
+                                    </span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Modal Footer (Cta to action) */}
+                      <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div className="text-left">
+                          <span className="font-mono text-[9px] text-[#737686] uppercase font-bold block">AUDIT YOUR REGION SLOTS</span>
+                          <span className="text-xs text-[#c3c6d7]">Can your plumbing firm match this average scale return?</span>
+                        </div>
+                        <div className="flex gap-3 w-full sm:w-auto">
+                          <button 
+                            onClick={() => {
+                              setSelectedStudy(null);
+                              onStartFunnel();
+                            }}
+                            className="flex-1 sm:flex-none uppercase tracking-wider font-sans font-extrabold text-xs bg-[#10B981] hover:bg-[#006c49] text-white px-5 py-3 rounded-xl transition-all shadow-md cursor-pointer"
+                          >
+                            Check My Territory Fit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </section>
