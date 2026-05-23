@@ -1,0 +1,6 @@
+{
+  "name": "PlumbGrowth Pro",
+  "description": "Enterprise lead-generation and qualification funnel for professional plumbing contractors.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
