@@ -154,6 +154,13 @@ export default function ResultsPage({ answers, onBookSession, booking }: Results
         <p className="font-sans text-[#434655] text-base md:text-lg leading-relaxed">
           Based on your insights, <strong className="text-[#004ac6]">{answers.businessName}</strong> has strong potential to generate <strong>2-5x more calls</strong> with a professional layout optimized for plumbing contractors.
         </p>
+
+        <div className="mt-6 inline-flex items-center gap-2 rounded-3xl border border-[#10b981]/20 bg-[#ecfdf5] px-5 py-4 text-sm text-[#065f46] shadow-sm">
+          <CheckCircle className="w-5 h-5 text-[#10b981]" />
+          <div>
+            We have saved your submission successfully. We will contact you via email at <strong>{answers.email}</strong> with the next steps.
+          </div>
+        </div>
       </section>
 
       {/* 2. Visual Content Grid */}

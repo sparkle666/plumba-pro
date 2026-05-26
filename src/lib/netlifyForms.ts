@@ -26,6 +26,8 @@ export async function submitLeadToNetlify(lead: Lead): Promise<boolean> {
       submissionTime: new Date().toISOString(),
     };
 
+    console.log('Submitting lead to n8n webhook:', submissionData);
+
     const response = await fetch(N8N_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -136,6 +136,8 @@ export default function App() {
       score: finalScore
     };
 
+    console.log('Lead created at onboarding completion:', newLead);
+
     const newLeadsList = [newLead, ...leads];
     saveLeadsToStorage(newLeadsList);
 
