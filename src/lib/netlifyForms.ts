@@ -1,21 +1,13 @@
 import { Lead } from '../types';
 
-/**
- * Helpler function to encode object data to x-www-form-urlencoded
- */
-function encode(data: Record<string, string>): string {
-  return Object.keys(data)
-    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-    .join('&');
-}
+const N8N_WEBHOOK_URL = 'https://n8n-production-eb2f.up.railway.app/webhook/contact-form';
 
 /**
- * Submits the lead data with answers and optional manual booking parameters to Netlify Forms.
+ * Submits the lead data with answers and optional manual booking parameters to the n8n webhook.
  */
 export async function submitLeadToNetlify(lead: Lead): Promise<boolean> {
   try {
-    const submissionData: Record<string, string> = {
-      'form-name': 'leads',
+    const submissionData = {
       fullName: lead.answers.fullName || '',
       businessName: lead.answers.businessName || '',
       email: lead.answers.email || '',
@@ -25,27 +17,30 @@ export async function submitLeadToNetlify(lead: Lead): Promise<boolean> {
       businessSize: lead.answers.businessSize || '',
       websiteState: lead.answers.websiteState || '',
       monthlyRevenue: lead.answers.monthlyRevenue || '',
-      leadFlowSatisfaction: String(lead.answers.leadFlowSatisfaction || ''),
-      diagnosticScore: String(lead.score || ''),
+      leadFlowSatisfaction: lead.answers.leadFlowSatisfaction ?? '',
+      diagnosticScore: lead.score ?? '',
       bookedDate: lead.booking?.date || 'Not booked yet',
       bookedTimeSlot: lead.booking?.timeSlot || 'Not booked yet',
+      qualified: lead.qualified,
+      createdTime: lead.createdTime,
+      submissionTime: new Date().toISOString(),
     };
 
-    const response = await fetch('/', {
+    const response = await fetch(N8N_WEBHOOK_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode(submissionData),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(submissionData),
     });
 
     if (!response.ok) {
-      console.error(`Netlify Forms submission failed with status ${response.status}`);
+      console.error(`n8n webhook submission failed with status ${response.status}`);
       return false;
     }
 
-    console.log('Netlify Forms submission succeeded!');
+    console.log('n8n webhook submission succeeded!');
     return true;
   } catch (err) {
-    console.error('Error submitting lead to Netlify Forms:', err);
+    console.error('Error submitting lead to n8n webhook:', err);
     return false;
   }
 }

@@ -1,0 +1,123 @@
+{
+  "name": "Form Collector",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "contact-form",
+        "httpMethod": "POST",
+        "responseMode": "onReceived"
+      },
+      "id": "1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "fullName",
+              "value": "={{$json[\"fullName\"]}}"
+            },
+            {
+              "name": "businessName",
+              "value": "={{$json[\"businessName\"]}}"
+            },
+            {
+              "name": "email",
+              "value": "={{$json[\"email\"]}}"
+            },
+            {
+              "name": "phone",
+              "value": "={{$json[\"phone\"]}}"
+            },
+            {
+              "name": "location",
+              "value": "={{$json[\"location\"]}}"
+            },
+            {
+              "name": "businessType",
+              "value": "={{$json[\"businessType\"]}}"
+            },
+            {
+              "name": "businessSize",
+              "value": "={{$json[\"businessSize\"]}}"
+            },
+            {
+              "name": "websiteState",
+              "value": "={{$json[\"websiteState\"]}}"
+            },
+            {
+              "name": "monthlyRevenue",
+              "value": "={{$json[\"monthlyRevenue\"]}}"
+            },
+            {
+              "name": "leadFlowSatisfaction",
+              "value": "={{$json[\"leadFlowSatisfaction\"]}}"
+            },
+            {
+              "name": "diagnosticScore",
+              "value": "={{$json[\"diagnosticScore\"]}}"
+            },
+            {
+              "name": "bookedDate",
+              "value": "={{$json[\"bookedDate\"] || 'Not booked yet'}}"
+            },
+            {
+              "name": "bookedTimeSlot",
+              "value": "={{$json[\"bookedTimeSlot\"] || 'Not booked yet'}}"
+            },
+            {
+              "name": "submissionTime",
+              "value": "={{new Date().toISOString()}}"
+            }
+          ]
+        }
+      },
+      "id": "2",
+      "name": "Format Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "sheetId": "YOUR_GOOGLE_SHEET_ID",
+        "range": "Sheet1!A:M",
+        "options": {}
+      },
+      "id": "3",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [750, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Format Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Data": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
