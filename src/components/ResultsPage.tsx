@@ -267,51 +267,48 @@ export default function ResultsPage({ answers, onBookSession, booking }: Results
             </div>
           </div>
 
-          {/* Speed & Competitor Insight Technical Audit */}
+          {/* Booking Priority Card (replaces technical audit) */}
           <div className="p-8 bg-white border border-[#c3c6d7] rounded-2xl flex flex-col justify-between h-1/2">
             <div className="space-y-2">
               <span className="font-mono text-[10px] uppercase tracking-widest text-[#004ac6] block font-bold">
-                TECHNICAL DIAGNOSTIC SUMMARY
+                PRIORITY BOOKING
               </span>
               <h3 className="font-sans font-bold text-xl text-[#131b2e] leading-tight">
-                Estimated Performance Metric Gaps
+                Pick a time — We'll jump on a quick call
               </h3>
             </div>
 
             <div className="space-y-4 my-5 text-xs">
-              <div className="flex items-center justify-between p-2.5 bg-[#f2f3ff] border border-[#eaedff] rounded-xl">
-                <div className="flex items-center gap-2">
-                  <Gauge className="w-4.5 h-4.5 text-[#ba1a1a]" />
-                  <span className="font-sans font-bold text-[#131b2e]">Estimated Speed Score</span>
+              <p className="text-[#434655]">
+                Choose a slot on the right and we'll reach out to confirm a short 30-minute strategy call. We use this time to walk through your preview, answer questions, and lock in priority territory support.
+              </p>
+
+              <div className="flex items-start gap-3">
+                <PhoneCall className="w-5 h-5 text-[#2563eb]" />
+                <div>
+                  <div className="font-bold text-sm text-[#131b2e]">Live Call Confirmation</div>
+                  <div className="text-[11px] text-[#737686]">We'll send a calendar invite with a video link after you request a slot.</div>
                 </div>
-                <span className="font-mono text-xs font-bold text-[#ba1a1a] bg-[#ffdad6] px-2 py-0.5 rounded">
-                  42 / 100 (Unoptimized)
-                </span>
               </div>
 
-              <div className="flex items-center justify-between p-2.5 bg-[#f2f3ff] border border-[#eaedff] rounded-xl">
-                <div className="flex items-center gap-2">
-                  <AlertCircle className="w-4.5 h-4.5 text-[#004ac6]" />
-                  <span className="font-sans font-bold text-[#131b2e]">Territory Competitor Danger</span>
+              <div className="flex items-start gap-3">
+                <UserCheck className="w-5 h-5 text-[#10B981]" />
+                <div>
+                  <div className="font-bold text-sm text-[#131b2e]">Priority Review</div>
+                  <div className="text-[11px] text-[#737686]">Slots are limited — selecting a time puts you at the front of our onboarding queue.</div>
                 </div>
-                <span className="font-mono text-xs font-bold text-[#004ac6] bg-[#6cf8bb]/30 px-2 py-0.5 rounded text-[#00714d]">
-                  High Density Search
-                </span>
               </div>
             </div>
 
             <div className="pt-4 border-t border-[#c3c6d7] flex items-center gap-3">
-              {/* Overlapping small avatar profiles */}
               <div className="flex -space-x-2 overflow-hidden">
-                <span className="inline-block w-7.5 h-7.5 rounded-full ring-2 ring-white bg-[#e2e8f0] flex items-center justify-center font-bold text-[9px] text-[#131b2e]">AD</span>
-                <span className="inline-block w-7.5 h-7.5 rounded-full ring-2 ring-white bg-[#e2e8f0] flex items-center justify-center font-bold text-[9px] text-[#2563eb]">JS</span>
-                <span className="inline-block w-7.5 h-7.5 rounded-full ring-2 ring-white bg-[#e2e8f0] flex items-center justify-center font-bold text-[9px] text-[#00714d]">TL</span>
+                <span className="inline-block w-7.5 h-7.5 rounded-full ring-2 ring-white bg-[#e2e8f0] flex items-center justify-center font-bold text-[9px] text-[#131b2e]">PG</span>
+                <span className="inline-block w-7.5 h-7.5 rounded-full ring-2 ring-white bg-[#e2e8f0] flex items-center justify-center font-bold text-[9px] text-[#2563eb]">ST</span>
               </div>
               <p className="font-sans text-[11px] text-[#434655]">
-                Evaluated by PlumbGrowth strategists. Join 400+ plumbing owners who optimized their funnel.
+                Book your preferred time and expect a confirmation email with the meeting link within 24 hours.
               </p>
             </div>
-
           </div>
 
         </div>
@@ -461,17 +458,17 @@ export default function ResultsPage({ answers, onBookSession, booking }: Results
                   {/* Available Time Slot Selection */}
                   <div className="space-y-4">
                     <span className="font-sans font-bold text-sm text-[#131b2e] block">
-                      Select Available Time Slot for Day {selectedDay}:
+                      Choose Your Preferred Time — we'll jump on a quick call for Day {selectedDay}:
                     </span>
 
                     {/* Manual Email-Based Booking Notice Banner */}
                     <div className="p-3 bg-gradient-to-r from-[#f2f3ff] to-[#faf8ff] border border-[#eaedff] rounded-xl text-xs space-y-1.5">
                       <div className="flex items-center gap-1.5 font-bold text-[#131b2e]">
                         <Calendar className="w-4 h-4 text-[#2563eb]" />
-                        <span>Manual Email Coordination</span>
+                        <span>Confirm Call — We'll Reach Out</span>
                       </div>
                       <p className="text-[#434655] text-[11px] leading-relaxed">
-                        Select your preferred slot. We will manually review your diagnostics and reach out via email to <strong className="text-[#131b2e]">{answers.email}</strong> to finalize and provide the meet room.
+                        Pick a slot and we'll contact you to confirm the time and send a video meeting link to <strong className="text-[#131b2e]">{answers.email}</strong>. We'll jump on a short call to walk through your plan.
                       </p>
                     </div>
 
@@ -499,7 +496,7 @@ export default function ResultsPage({ answers, onBookSession, booking }: Results
                     
                     <div className="flex items-center gap-1.5 text-[11px] text-[#737686]">
                       <Clock className="w-3.5 h-3.5 shrink-0" />
-                      <span>Slot will be requested and manually followed up via email.</span>
+                      <span>We'll follow up by email to confirm the meeting and send the video link.</span>
                     </div>
                   </div>
                 </div>
